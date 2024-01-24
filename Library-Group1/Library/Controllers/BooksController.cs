@@ -19,7 +19,6 @@ namespace Library.Controllers
             _context = context;
         }
 
-        // GET: Books
         public async Task<IActionResult> Index()
         {
             return View(await _context.Books.ToListAsync());
