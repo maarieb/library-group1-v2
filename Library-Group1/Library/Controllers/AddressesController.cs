@@ -15,10 +15,12 @@ namespace Library.Controllers
     public class AddressesController : Controller
     {
         private readonly IAddressRepository Repository;
+        private readonly IReaderRepository ReaderRepository;
 
-        public AddressesController(IAddressRepository repo)
+        public AddressesController(IAddressRepository repo, IReaderRepository readerRepository)
         {
             Repository = repo;
+            ReaderRepository = readerRepository;
         }
 
         // GET: Addresses
@@ -55,11 +57,13 @@ namespace Library.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Address address)
+        public async Task<IActionResult> Create(Address address, Reader reader)
         {
             if (ModelState.IsValid)
             {
                 await Repository.Insert(address);
+                reader.Address = address;
+                await ReaderRepository.Insert(reader);
                 return RedirectToAction(nameof(Index));
             }
             return View(address);

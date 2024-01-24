@@ -8,16 +8,19 @@ using Microsoft.EntityFrameworkCore;
 using Library.Data;
 using Library.Entities;
 using LibraryCore.Interfaces;
+using Library.Models;
 
 namespace Library.Controllers
 {
     public class ReadersController : Controller
     {
         private readonly IReaderRepository Repository;
+        private readonly IAddressRepository AdressRepository;
 
-        public ReadersController(IReaderRepository repo)
+        public ReadersController(IReaderRepository repo, IAddressRepository adressRepository)
         {
             Repository = repo;
+            AdressRepository = adressRepository;
         }
 
         // GET: Readers
@@ -54,14 +57,32 @@ namespace Library.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Reader reader)
+        public async Task<IActionResult> Create(ReadersViewModel readervm)
         {
             if (ModelState.IsValid)
             {
+                Address address = new Address()
+                {
+                    Appartment = readervm.Appartment,
+                    City = readervm.City,
+                    Street = readervm.Street,
+                    ZipCode = readervm.ZipCode,
+                    Country = readervm.Country,
+                };
+
+                Reader reader = new Reader()
+                {
+                    FirstName = readervm.FirstName,
+                    LastName = readervm.LastName,
+                    Mail = readervm.Mail,
+                    PhoneNumber = readervm.PhoneNumber,
+                    Address = address,
+                };
+ 
                 await Repository.Insert(reader);
                 return RedirectToAction(nameof(Index));
             }
-            return View(reader);
+            return View(readervm);
         }
 
         // GET: Readers/Edit/5
