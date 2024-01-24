@@ -34,7 +34,7 @@ namespace LibraryInfrastructure.Repositories
 
         public async Task<Writer> GetById(int id)
         {
-            return await Context.Writers.FirstOrDefaultAsync(w => w.Id == id);
+            return await Context.Writers.Include(w => w.Books).FirstOrDefaultAsync(w => w.Id == id);
         }
 
         public async Task<List<Writer>> GetByName(string lastname)
