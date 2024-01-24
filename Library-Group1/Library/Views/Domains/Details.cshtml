@@ -22,6 +22,15 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Description)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Books)
+        </dt>
+        <dd class="col-sm-10">
+            @foreach (var item in Model.Books)
+            {
+                @Html.DisplayFor(i => item.Title)
+            }
+        </dd>
     </dl>
 </div>
 <div>

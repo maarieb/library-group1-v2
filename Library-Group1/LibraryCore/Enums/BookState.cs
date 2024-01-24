@@ -9,9 +9,7 @@ namespace LibraryCore.Enums
 {
     public enum BookState
     {
-        [Display(Name = "Disponible")]
-        AVAILABLE,
-        [Display(Name = "Emprunté")]
-        LOANED
+        DISPONIBLE,
+        EMPRUNTE
     }
 }

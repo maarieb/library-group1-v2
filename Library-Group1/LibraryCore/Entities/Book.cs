@@ -20,6 +20,7 @@ namespace Library.Entities
         public Book()
         {
             Loans = new List<Loan>();
+            State = BookState.DISPONIBLE;
         }
 
         public Book(string title, int pagesNumber, Writer? writer, Domain? domain)
@@ -29,6 +30,7 @@ namespace Library.Entities
             Writer = writer;
             Domain = domain;
             Loans = new List<Loan>();
+            State = BookState.DISPONIBLE;
         }
 
         public Book(string title, string description, Writer writer, Domain domain)
@@ -38,6 +40,7 @@ namespace Library.Entities
             Writer = writer;
             Domain = domain;
             Loans = new List<Loan>();
+            State = BookState.DISPONIBLE;
         }
 
         public override string? ToString()

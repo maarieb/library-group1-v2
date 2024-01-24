@@ -1,5 +1,6 @@
 ﻿using Library.Entities;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -12,7 +13,6 @@ namespace LibraryCore.Interfaces
     {
         Task<List<Writer>> GetAll();
         Task<Writer> GetById(int id);
-
 
         Task<Writer> GetSingle(string lastname, string firstname);
         Task<List<Writer>> GetByName(string lastname);

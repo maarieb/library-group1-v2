@@ -41,7 +41,7 @@ namespace LibraryInfrastructure.Repositories
 
         public async Task<Domain> GetById(int id)
         {
-            return await Context.Domains.FirstOrDefaultAsync(d => d.Id == id);
+            return await Context.Domains.Include(d => d.Books).FirstOrDefaultAsync(d => d.Id == id);
         }
 
         public async Task<Domain> GetByName(string name)
