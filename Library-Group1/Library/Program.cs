@@ -12,6 +12,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
 builder.Services.AddDbContext<LibraryContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddScoped<IWriterRepository, WriterRepository>();
 builder.Services.AddScoped<IDomainRepository, DomainRepository>();
+builder.Services.AddScoped<IAddressRepository, AddressRepository>();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
