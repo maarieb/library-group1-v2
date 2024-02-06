@@ -50,11 +50,12 @@ namespace Library.Controllers
         // GET: Books/Create
         public async Task<IActionResult> Create()
         {
-            var viewModel = new BookViewModel();
-            //viewModel.Writers = await WriterRepository.GetAll();
+            var viewModel = new BooksViewModel();
+            var writers = await WriterRepository.GetAll();
+            var writersFullNames = writers.Select(w => new { Id = w.Id, FullName = $"{w.FirstName} {w.LastName}" }).ToList();
 
             ViewData["Writers"]
-                = new SelectList(await WriterRepository.GetAll(), "Id", "LastName");
+                = new SelectList(writersFullNames, "Id", "FullName");
             ViewData["Domains"]
                 = new SelectList(await DomainRepository.GetAll(), "Id", "Name");
             return View(viewModel);
@@ -65,7 +66,7 @@ namespace Library.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(BookViewModel book)
+        public async Task<IActionResult> Create(BooksViewModel book)
         {
             if (ModelState.IsValid)
             {
