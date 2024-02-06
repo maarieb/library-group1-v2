@@ -39,12 +39,24 @@ namespace Library.Controllers
             }
 
             var book = await BookRepository.GetById(id.Value);
+            var bookModel = new BooksViewModel();
             if (book == null)
             {
                 return NotFound();
+            } else
+            {
+                bookModel.Id = book.Id;
+                bookModel.Title = book.Title;
+                bookModel.Description = book.Description;
+                bookModel.PagesNumber = book.PagesNumber;
+                bookModel.WriterId = book.Writer.Id;
+                bookModel.DomainId = book.Domain.Id;
+                bookModel.DomainName = book.Domain.Name;
+                bookModel.WriterName = book.Writer.FirstName + " " + book.Writer.LastName;
+                bookModel.State = book.State;
             }
 
-            return View(book);
+            return View(bookModel);
         }
 
         // GET: Books/Create

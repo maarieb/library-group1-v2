@@ -13,7 +13,7 @@ namespace Library.Entities
         public string Title { get; set; }
         public string ?Description { get; set; }
         public int PagesNumber { get; set; }
-        public BookState? State { get; set; }
+        public BookState State { get; set; }
         public Writer ?Writer { get; set; }
         public Domain ?Domain { get; set; }
         public List<Loan> ?Loans { get; set; }
