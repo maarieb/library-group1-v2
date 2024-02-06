@@ -39,22 +39,35 @@ namespace Library.Controllers
             }
 
             var book = await BookRepository.GetById(id.Value);
+            var bookModel = new BooksViewModel();
             if (book == null)
             {
                 return NotFound();
+            } else
+            {
+                bookModel.Id = book.Id;
+                bookModel.Title = book.Title;
+                bookModel.Description = book.Description;
+                bookModel.PagesNumber = book.PagesNumber;
+                bookModel.WriterId = book.Writer.Id;
+                bookModel.DomainId = book.Domain.Id;
+                bookModel.DomainName = book.Domain.Name;
+                bookModel.WriterName = book.Writer.FirstName + " " + book.Writer.LastName;
+                bookModel.State = book.State;
             }
 
-            return View(book);
+            return View(bookModel);
         }
 
         // GET: Books/Create
         public async Task<IActionResult> Create()
         {
-            var viewModel = new BookViewModel();
-            //viewModel.Writers = await WriterRepository.GetAll();
+            var viewModel = new BooksViewModel();
+            var writers = await WriterRepository.GetAll();
+            var writersFullNames = writers.Select(w => new { Id = w.Id, FullName = $"{w.FirstName} {w.LastName}" }).ToList();
 
             ViewData["Writers"]
-                = new SelectList(await WriterRepository.GetAll(), "Id", "LastName");
+                = new SelectList(writersFullNames, "Id", "FullName");
             ViewData["Domains"]
                 = new SelectList(await DomainRepository.GetAll(), "Id", "Name");
             return View(viewModel);
@@ -65,7 +78,7 @@ namespace Library.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(BookViewModel book)
+        public async Task<IActionResult> Create(BooksViewModel book)
         {
             if (ModelState.IsValid)
             {

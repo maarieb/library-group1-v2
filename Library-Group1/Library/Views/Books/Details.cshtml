@@ -1,4 +1,4 @@
-﻿@model Library.Entities.Book
+﻿@model Library.Models.BooksViewModel;
 
 @{
     ViewData["Title"] = "Details";
@@ -11,25 +11,37 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
+            Titre
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Title)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
+            Description
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Description)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PagesNumber)
+            Nombre de pages
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.PagesNumber)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.State)
+            Auteur
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.WriterName)
+        </dd>
+        <dt class="col-sm-2">
+            Domaine
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DomainName)
+        </dd>
+        <dt class = "col-sm-2">
+            Etat
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.State)

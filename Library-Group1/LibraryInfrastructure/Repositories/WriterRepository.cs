@@ -32,6 +32,11 @@ namespace LibraryInfrastructure.Repositories
             return await Context.Writers.ToListAsync();
         }
 
+        public async Task<List<Writer>> GetAllFullNames()
+        {
+            return await Context.Writers.ToListAsync();
+        }
+
         public async Task<Writer> GetById(int id)
         {
             return await Context.Writers.Include(w => w.Books).FirstOrDefaultAsync(w => w.Id == id);
