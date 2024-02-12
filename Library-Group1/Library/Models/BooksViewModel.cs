@@ -12,8 +12,8 @@ namespace Library.Models
         public int DomainId { get; set; }
         public int WriterId { get; set; }
 
-        public string DomainName { get; set; }
-        public string WriterName { get; set; }
+        public string? DomainName { get; set; }
+        public string? WriterName { get; set; }
         public BookState State {  get; set; }
 
     }
