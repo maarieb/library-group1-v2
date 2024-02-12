@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Library.Entities
@@ -16,6 +17,7 @@ namespace Library.Entities
         public BookState State { get; set; }
         public Writer ?Writer { get; set; }
         public Domain ?Domain { get; set; }
+        [JsonIgnore]
         public List<Loan> ?Loans { get; set; }
         public Book()
         {

@@ -35,7 +35,7 @@ namespace LibraryInfrastructure.Repositories
 
         public async Task<List<Book>> GetAll()
         {
-            return await Context.Books.ToListAsync();
+            return await Context.Books.Include(b => b.Writer).Include(b => b.Domain).ToListAsync();
         }
 
         public async Task<Book> GetById(int id)
@@ -45,7 +45,7 @@ namespace LibraryInfrastructure.Repositories
 
         public async Task<Book> GetByTitle(string title)
         {
-            return await Context.Books.FirstOrDefaultAsync(b => b.Title.Equals(title));
+            return await Context.Books.Include(b => b.Writer).Include(b => b.Domain).FirstOrDefaultAsync(b => b.Title.Equals(title));
         }
 
         public async Task Insert(Book book)

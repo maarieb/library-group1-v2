@@ -35,22 +35,22 @@ namespace LibraryInfrastructure.Repositories
 
         public async Task<List<Reader>> GetAll()
         {
-            return await Context.Readers.ToListAsync();
+            return await Context.Readers.Include(b => b.Address).ToListAsync();
         }
 
         public async Task<Reader> GetById(int id)
         {
-            return await Context.Readers.FirstOrDefaultAsync(r => r.Id == id);
+            return await Context.Readers.Include(b => b.Address).FirstOrDefaultAsync(r => r.Id == id);
         }
 
         public async Task<List<Reader>> GetByName(string lastname)
         {
-            return await Context.Readers.Where(r => r.LastName.Contains(lastname)).ToListAsync();
+            return await Context.Readers.Include(b => b.Address).Where(r => r.LastName.Contains(lastname)).ToListAsync();
         }
 
-        public async Task<Reader> GetSingle(string lastname, string firstname)
+        public async Task<Reader> GetSingle(string email)
         {
-            return await Context.Readers.FirstOrDefaultAsync(r => r.LastName.Equals(lastname) && r.FirstName.Equals(firstname));
+            return await Context.Readers.Include(b => b.Address).FirstOrDefaultAsync(r => r.Mail.Equals(email));
         }
 
         public async Task Insert(Reader reader)
