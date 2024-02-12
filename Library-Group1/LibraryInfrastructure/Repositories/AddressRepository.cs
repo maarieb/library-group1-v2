@@ -28,9 +28,9 @@ namespace LibraryInfrastructure.Repositories
             await Context.SaveChangesAsync();
         }
 
-        public async Task<bool> Exist(string appartment, string street, string city, string zipCode, string country)
+        public async Task<Address> GetSingle(string appartment, string street, string city, string zipCode, string country)
         {
-            return await Context.Addresses.AnyAsync(a => a.Appartment.Equals(appartment) &&
+            return await Context.Addresses.FirstOrDefaultAsync(a => a.Appartment.Equals(appartment) &&
             a.Street.Equals(street) && a.City.Equals(city) && a.ZipCode.Equals(zipCode) && a.Country.Equals(country));
         }
 
@@ -64,10 +64,10 @@ namespace LibraryInfrastructure.Repositories
             return await Context.Addresses.Where(a => a.Street.Contains(street)).ToListAsync();
         }
 
-        public async Task<Address> GetSingle(string appartment, string street, string city, string zipCode, string country)
+        public async Task<Address> GetSingle(Address address)
         {
-            return await Context.Addresses.FirstOrDefaultAsync(a => a.Appartment.Equals(appartment) &&
-            a.Street.Equals(street) && a.City.Equals(city) && a.ZipCode.Equals(zipCode) && a.Country.Equals(country));
+            return await Context.Addresses.FirstOrDefaultAsync(a => a.Appartment.Equals(address.Appartment) &&
+            a.Street.Equals(address.Street) && a.City.Equals(address.City) && a.ZipCode.Equals(address.ZipCode) && a.Country.Equals(address.Country));
         }
 
         public async Task Insert(Address address)
@@ -78,6 +78,7 @@ namespace LibraryInfrastructure.Repositories
 
         public async Task Update(Address address)
         {
+            Context.Entry(address).State = EntityState.Modified;
             Context.Addresses.Update(address);
             await Context.SaveChangesAsync();
         }

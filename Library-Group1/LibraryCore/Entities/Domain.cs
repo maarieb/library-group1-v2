@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Library.Entities
@@ -11,6 +12,8 @@ namespace Library.Entities
     {
         public string Name { get; set; }
         public string ?Description { get; set; }
+
+        [JsonIgnore]
         public List<Book> ?Books { get; set; }
 
         public Domain()

@@ -11,7 +11,7 @@ namespace LibraryCore.Interfaces
     {
         Task<List<Reader>> GetAll();
         Task<Reader> GetById(int id);
-        Task<Reader> GetSingle(string lastname, string firstname);
+        Task<Reader> GetSingle(string email);
         Task<List<Reader>> GetByName(string lastname);
         Task<bool> Exist(string lastname, string firstname);
         Task<bool> Exist(int id);

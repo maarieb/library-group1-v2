@@ -29,12 +29,12 @@ namespace LibraryInfrastructure.Repositories
 
         public async Task<List<Writer>> GetAll()
         {
-            return await Context.Writers.ToListAsync();
+            return await Context.Writers.Include(w => w.Books).ToListAsync();
         }
 
         public async Task<List<Writer>> GetAllFullNames()
         {
-            return await Context.Writers.ToListAsync();
+            return await Context.Writers.Include(w => w.Books).ToListAsync();
         }
 
         public async Task<Writer> GetById(int id)
@@ -44,7 +44,7 @@ namespace LibraryInfrastructure.Repositories
 
         public async Task<List<Writer>> GetByName(string lastname)
         {
-            return await Context.Writers.Where(w => w.LastName.Contains(lastname)).ToListAsync();
+            return await Context.Writers.Include(w => w.Books).Where(w => w.LastName.Contains(lastname)).ToListAsync();
         }
 
         public async Task<bool> Exist(string lastname, string firstname)
