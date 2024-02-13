@@ -149,16 +149,18 @@ namespace LibraryAPI.Controllers
                 return BadRequest();
             }
 
+            Loan realLoan = await _loanService.GetById(id);
+
             try
             {
-                loan.EndDate = DateTime.Now;
-                loan.Book.State = BookState.DISPONIBLE;
-                await _loanService.Update(loan);
+                realLoan.EndDate = DateTime.Now;
+                realLoan.Book.State = BookState.DISPONIBLE;
+                await _loanService.Update(realLoan);
             }
             catch (DbUpdateConcurrencyException)
             {
 
-                if (loan == null)
+                if (realLoan == null)
                 {
                     return NotFound();
                 }
@@ -168,7 +170,7 @@ namespace LibraryAPI.Controllers
                 }
             }
 
-            return Accepted(loan);
+            return Accepted(realLoan);
         }
 
         // DELETE: api/Loans/5
