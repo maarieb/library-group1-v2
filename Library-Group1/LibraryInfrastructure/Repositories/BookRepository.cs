@@ -1,6 +1,7 @@
 ﻿using Library.Data;
 using Library.Entities;
 using LibraryCore.Interfaces;
+using LibraryCore.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -36,6 +37,16 @@ namespace LibraryInfrastructure.Repositories
         public async Task<List<Book>> GetAll()
         {
             return await Context.Books.Include(b => b.Writer).Include(b => b.Domain).ToListAsync();
+        }
+
+        public async Task<List<Book>> GetAvailableBooks()
+        {
+            return await Context.Books.Include(b => b.Writer).Include(b => b.Domain).Where(b => b.State.Equals(BookState.DISPONIBLE)).ToListAsync();
+        }
+
+        public async Task<List<Book>> GetLoanedBooks()
+        {
+            return await Context.Books.Include(b => b.Writer).Include(b => b.Domain).Where(b => b.State.Equals(BookState.EMPRUNTE)).ToListAsync();
         }
 
         public async Task<Book> GetById(int id)

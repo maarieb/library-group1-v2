@@ -10,6 +10,8 @@ namespace LibraryCore.Interfaces
     public interface IBookRepository
     {
         Task<List<Book>> GetAll();
+        Task<List<Book>> GetAvailableBooks();
+        Task<List<Book>> GetLoanedBooks();
         Task<Book> GetById(int id);
         Task<Book> GetByTitle(string title);
         Task<bool> Exist(string title);
