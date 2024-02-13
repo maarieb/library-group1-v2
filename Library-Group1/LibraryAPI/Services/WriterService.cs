@@ -3,7 +3,7 @@ using LibraryCore.Interfaces;
 
 namespace LibraryAPI.Services
 {
-    public class WriterService
+    public class WriterService : IService<Writer>
     {
         private readonly IWriterRepository Repository;
 
@@ -44,5 +44,23 @@ namespace LibraryAPI.Services
         {
             return await Repository.GetSingle(lastname, firstname);
         }
+
+        public Task<Writer>? GetById(int id)
+        {
+            var writer = await Repository.GetById(id.Value);
+            return writer;
+        }
+
+        public Task<Writer> Add(Writer entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Writer> GetSingle(Writer entity)
+        {
+            throw new NotImplementedException();
+        }
+
+
     }
 }
