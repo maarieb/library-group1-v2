@@ -24,7 +24,6 @@ namespace LibraryAPI.Controllers
 
         // GET: api/Addresses
         [HttpGet]
-        [ProducesResponseType(201)]
         public async Task<ActionResult<IEnumerable<Domain>>> GetDomains()
         {
             return await domainServices.GetAll();

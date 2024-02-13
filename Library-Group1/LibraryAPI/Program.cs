@@ -12,6 +12,7 @@ builder.Services.AddDbContext<LibraryContext>(options => options.UseSqlServer(co
 builder.Services.AddScoped<IWriterRepository, WriterRepository>();
 builder.Services.AddScoped<IDomainRepository, DomainRepository>();
 builder.Services.AddScoped<IAddressRepository, AddressRepository>();
+builder.Services.AddScoped<ILoanRepository, LoanRepository>();
 builder.Services.AddScoped<IReaderRepository, ReaderRepository>();
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<AddressService>();
@@ -19,6 +20,7 @@ builder.Services.AddScoped<BookService>();
 builder.Services.AddScoped<DomainService>();
 builder.Services.AddScoped<ReaderService>();
 builder.Services.AddScoped<WriterService>();
+builder.Services.AddScoped<LoanService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

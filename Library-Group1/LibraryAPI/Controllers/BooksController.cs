@@ -28,10 +28,21 @@ namespace LibraryAPI.Controllers
 
         // GET: api/Addresses
         [HttpGet]
-        [ProducesResponseType(201)]
         public async Task<ActionResult<IEnumerable<Book>>> GetBooks()
         {
             return await _bookService.GetAll();
+        }
+
+        [HttpGet("available")]
+        public async Task<ActionResult<IEnumerable<Book>>> GetAvailableBooks()
+        {
+            return await _bookService.GetAvailableBooks();
+        }
+
+        [HttpGet("loaned")]
+        public async Task<ActionResult<IEnumerable<Book>>> GetLoanedBooks()
+        {
+            return await _bookService.GetLoanedBooks();
         }
 
         // GET: api/Addresses/5

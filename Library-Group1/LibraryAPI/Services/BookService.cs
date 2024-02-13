@@ -43,5 +43,15 @@ namespace LibraryAPI.Services
         {
             return await Repository.GetByTitle(title);
         }
+
+        public async Task<List<Book>> GetAvailableBooks()
+        {
+            return await Repository.GetAvailableBooks();
+        }
+
+        public async Task<List<Book>> GetLoanedBooks()
+        {
+            return await Repository.GetLoanedBooks();
+        }
     }
 }

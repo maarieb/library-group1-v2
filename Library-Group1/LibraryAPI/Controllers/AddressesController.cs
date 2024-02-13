@@ -25,7 +25,6 @@ namespace LibraryAPI.Controllers
 
         // GET: api/Addresses
         [HttpGet]
-        [ProducesResponseType(201)]
         public async Task<ActionResult<IEnumerable<Address>>> GetAddresses()
         {
             return await addressServices.GetAll();

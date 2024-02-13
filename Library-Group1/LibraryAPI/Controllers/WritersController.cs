@@ -24,7 +24,6 @@ namespace LibraryAPI.Controllers
 
         // GET: api/Addresses
         [HttpGet]
-        [ProducesResponseType(201)]
         public async Task<ActionResult<IEnumerable<Writer>>> GetWriters()
         {
             return await writerServices.GetAll();
@@ -33,7 +32,6 @@ namespace LibraryAPI.Controllers
         // GET: api/Addresses/5
         [HttpGet("{id}")]
         [ProducesResponseType(404)]
-        [ProducesResponseType(201)]
         public async Task<ActionResult<Writer>> GetWriter(int id)
         {
             var writer = await writerServices.GetById(id);

@@ -42,5 +42,9 @@ namespace LibraryAPI.Services
         {
             return await Repository.GetSingle(reader.Mail);
         }
+        public async Task<Reader> GetSingle(string mail)
+        {
+            return await Repository.GetSingle(mail);
+        }
     }
 }
