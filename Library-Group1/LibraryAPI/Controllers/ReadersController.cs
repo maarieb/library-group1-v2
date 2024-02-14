@@ -115,5 +115,40 @@ namespace LibraryAPI.Controllers
         {
             return _readerService.GetById(id) != null;
         }
+
+        [HttpPut("Address/{id}")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(202)]
+        public async Task<IActionResult> PutReaderAndAddress(int id, Reader reader)
+        {
+            if (id != reader.Id)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                Address address = await _addressService.GetSingle(reader.Address);
+                if (address != null) { reader.Address = address; }
+                else { await _addressService.Create(reader.Address); }
+                
+                
+                await _readerService.Update(reader);
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ReaderExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return Accepted(reader);
+        }
     }
 }
