@@ -70,16 +70,36 @@ namespace LibraryAPI.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [ProducesResponseType(202)]
-        public async Task<IActionResult> PutLoan(int id, Loan loan)
+        public async Task<IActionResult> PutLoan(int id, LoanDTO loanDto)
         {
-            if (id != loan.Id)
+            if (id != loanDto.Id)
             {
                 return BadRequest();
             }
 
+            Loan realLoan = await _loanService.GetById(id);
+            realLoan.StartDate = loanDto.StartDate;
+            realLoan.EndDate = loanDto.EndDate;
+            Reader reader = await _readerService.GetSingle(loanDto.Mail);
+            Book book = await _bookService.GetSingle(loanDto.Title);
+
+            if (realLoan.Reader != reader) 
+            { 
+                realLoan.Reader = reader;
+            }
+
+            if (realLoan.Book.Title != book.Title)
+            {
+                realLoan.Book.State = BookState.DISPONIBLE;
+                book.State = BookState.EMPRUNTE;
+                realLoan.Book = book;
+            }
+
             try
             {
-                await _loanService.Update(loan);
+                await _bookService.Update(realLoan.Book);
+                await _bookService.Update(book);
+                await _loanService.Update(realLoan);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -94,7 +114,7 @@ namespace LibraryAPI.Controllers
                 }
             }
 
-            return Accepted(loan);
+            return Accepted(realLoan);
         }
 
         // POST: api/Loans
